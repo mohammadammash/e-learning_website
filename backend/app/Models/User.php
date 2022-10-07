@@ -28,11 +28,32 @@ class User extends Authenticatable implements JWTSubject
         'profile_url',
         'user_type_id',
     ];
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+
+    function usertype()
+    {
+        $this->belongsTo(UserType::class);
+    }
+
+    function announcements()
+    {
+        $this->hasMany(Announcement::class);
+    }
+
+    function instructor_courses()
+    {
+        $this->hasMany(Course::class);
+    }
+
+    function students_courses()
+    {
+        $this->belongsToMany(Course::class);
+    }
+
+    function assignments()
+    {
+        $this->belongsToMany(Assignment::class);
+    }
+
     protected $hidden = [
         'password',
     ];
