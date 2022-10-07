@@ -63,10 +63,6 @@ class AuthController extends Controller
         return response()->json(auth()->user());
     }
 
-    public function ok(){
-        return response()->json('status');
-    }
-
     public function refresh()
     {
         return $this->respondWithToken(auth()->refresh());
