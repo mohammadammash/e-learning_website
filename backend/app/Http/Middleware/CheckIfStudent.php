@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Models\Usertype;
 
 class CheckIfStudent
 {
@@ -16,12 +17,10 @@ class CheckIfStudent
      */
     public function handle(Request $request, Closure $next)
     {
-        $credentials = request(['email', 'password', 'user_type_id']);
+        $usertype = Usertype::find(auth()->user());
+        $type = $usertype[0]->type;
 
-        // if (!$token = auth()->attempt($credentials)) {
-        // return response()->json(['error' => 'Unauthorized'], 401);
-        // }
-        if (!$request) return;
+        if ($type !== "student") return response()->json("Unauthorized", 403);
 
         return $next($request);
     }
