@@ -29,6 +29,7 @@ class AuthController extends Controller
             'password' => $hashedpassword,
             'profile_url' => $validator['profile_url'],
             'email' => $validator['email'],
+            'user_type_id' => $validator['user_type_id'],
         ]);
 
         return $this->login($request);
@@ -55,7 +56,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'Error',
             'data' => 'User Not Found',
-        ],404);
+        ], 404);
     }
 
     public function me()
