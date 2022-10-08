@@ -3,15 +3,29 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\CheckIfAdmin;
 
-Route::post('login', [AuthController::class, 'login']);
-Route::post('register', [AuthController::class, 'register']);
+Route::group(['prefix' => 'v0.1'], function () {
 
-Route::group(['middleware' => 'api'],function($router){
-    Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::post('me', [AuthController::class, 'me']);
-});
+    //REGISTRATION
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    //JWT-AUTH MIDDLEWARE
+    Route::group(['middleware' => 'auth'], function () {
+        Route::post('refresh', [AuthController::class, 'refresh']);
+        Route::post('me', [AuthController::class, 'me']);
+
+        //ADMIN  AUTHORIZATION
+        Route::group(['middleware' => 'admin'], function () {
+        });
+
+        //STUDENT AUTHORIZATION
+        Route::group(['middleware' => 'instructor'], function () {
+        });
+
+        //INSTRUCTOR AUTHORIZATION
+        Route::group(['middleware' => 'instructor'], function () {
+        });
+    });
 });
