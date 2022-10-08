@@ -14,8 +14,8 @@ class CreateStudentsCoursesTable extends Migration
     public function up()
     {
         Schema::create('students_courses', function (Blueprint $table) {
-            $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
-            $table ->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->foreign('student_id')->references('_id')->on('users')->onDelete('cascade');
+            $table ->foreign('course_id')->references('_id')->on('courses')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class ModifyStudentsAssignmnetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('students_assignments', function (Blueprint $table) {
+        Schema::table('students_assignments', function (Blueprint $table) {
             $table->string('file_url');
         });
     }
@@ -25,6 +25,6 @@ class ModifyStudentsAssignmnetsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('students_assignments');
     }
 }

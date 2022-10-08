@@ -14,8 +14,7 @@ class CreateAssignmentsTable extends Migration
     public function up()
     {
         Schema::create('assignments', function (Blueprint $table) {
-            $table->id();
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->foreign('course_id')->references('_id')->on('courses')->onDelete('cascade');
             $table->string('file_url');
             $table->string('name');
             $table->timestamps();
