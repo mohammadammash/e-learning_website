@@ -16,6 +16,7 @@ class CreateStudentsAssignmentsTable extends Migration
         Schema::create('students_assignments', function (Blueprint $table) {
             $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('assignment_id')->references('id')->on('assignments')->onDelete('cascade');
+            $table->string('file_url');
             $table->timestamps();
         });
     }
