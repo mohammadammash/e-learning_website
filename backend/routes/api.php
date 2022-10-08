@@ -35,5 +35,11 @@ Route::group(['prefix' => 'v0.1'], function () {
             Route::get('instructor/courses/assignments/submitted', [InstructorController::class, 'getSubmittedAssignments'])->name('instructor-get-submitted-assignments');
         });
 
+        //STUDENT AUTHORIZATION
+        Route::group(['middleware' => 'student'], function () {
+            Route::get('/courses', [StudentController::class, 'getCourses'])->name('student-get-courses');
+            Route::get('/courses/assignments', [StudentController::class, 'getAssignments'])->name('student-get-assignments');
+            Route::post('/courses/assignments/submit', [StudentController::class, 'submitAssignment'])->name('student-submit-assignment');
+        });
     });
 });
