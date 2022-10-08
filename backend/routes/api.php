@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Middleware\CheckIfAdmin;
 
 Route::group(['prefix' => 'v0.1'], function () {
@@ -18,18 +19,12 @@ Route::group(['prefix' => 'v0.1'], function () {
 
         //ADMIN  AUTHORIZATION
         Route::group(['middleware' => 'admin'], function () {
-            Route::post('/instructor/add',[AdminController::class,'addInstructor'])->name('add-instructor');
-            Route::post('/student/add',[AdminController::class,'addStudent'])->name('add-student');
-            Route::post('/course/add',[AdminController::class,'addCourse'])->name('add-course');
-            Route::post('/instructor/course/assign', [AdminController::class, 'assignInstructorToCourse'])->name('assign-instructor-to-course');
+            Route::post('admin/add_instructor',[AdminController::class,'addInstructor'])->name('admin-add-instructor');
+            Route::post('admin/add_student',[AdminController::class,'addStudent'])->name('admin-add-student');
+            Route::post('admin/add_course',[AdminController::class,'addCourse'])->name('admin-add-course');
+            Route::post('admin/assign_instructor_to_course', [AdminController::class, 'assignInstructorToCourse'])->name('admin-assign-instructor-to-course');
         });
 
-        //STUDENT AUTHORIZATION
-        Route::group(['middleware' => 'instructor'], function () {
-        });
 
-        //INSTRUCTOR AUTHORIZATION
-        Route::group(['middleware' => 'instructor'], function () {
-        });
     });
 });
