@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
-use App\Http\Middleware\CheckIfAdmin;
+use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\StudentController;
 
 Route::group(['prefix' => 'v0.1'], function () {
 
@@ -27,18 +28,18 @@ Route::group(['prefix' => 'v0.1'], function () {
 
         //INSTRUCTOR AUTHORIZATION
         Route::group(['middleware' => 'instructor'], function () {
-            Route::post('instructor/add_student', [AdminController::class, 'addStudent'])->name('instructor-add-student');
+            Route::post('instructor/add_student', [AdminController::class, 'addStudent'])->name('instructor-add-student'); //common with admin
             Route::post('instructor/add_assignment', [InstructorController::class, 'addAssignment'])->name('instructor-add-assignment');
             Route::post('instructor/add_announcement', [InstructorController::class, 'addAnnouncement'])->name('instructor-add-announcement');
             Route::get('instructor/courses', [InstructorController::class, 'getCourses'])->name('instructor-get-courses');
-            Route::get('instructor/courses/assignments', [InstructorController::class, 'getAssignments'])->name('instructor-get-assignments');
-            Route::get('instructor/courses/assignments/submitted', [InstructorController::class, 'getSubmittedAssignments'])->name('instructor-get-submitted-assignments');
+            Route::get('instructor/courses/{course_id}/assignments', [InstructorController::class, 'getAssignments'])->name('instructor-get-assignments');
+            Route::get('instructor/courses/assignments/{assignment_id}', [InstructorController::class, 'getSubmittedAssignments'])->name('instructor-get-submitted-assignments');
         });
 
         //STUDENT AUTHORIZATION
         Route::group(['middleware' => 'student'], function () {
+            Route::get('/courses/{course_id}/assignments', [InstructorController::class, 'getAssignments'])->name('student-get-assignments'); //common with instructor
             Route::get('/courses', [StudentController::class, 'getCourses'])->name('student-get-courses');
-            Route::get('/courses/assignments', [StudentController::class, 'getAssignments'])->name('student-get-assignments');
             Route::post('/courses/assignments/submit', [StudentController::class, 'submitAssignment'])->name('student-submit-assignment');
         });
     });
