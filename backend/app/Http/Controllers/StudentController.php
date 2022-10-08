@@ -3,31 +3,63 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\StudentCourse;
-use App\Models\Course;
+use App\Models\StudentAssignment;
 
 class StudentController extends Controller
 {
     public function getCourses(Request $request)
     {
+        //get authenticated user
         $user = auth()->user();
-        $student_id = $user->id;
+        //get all his courses ids
         $student_courses = $user->students_courses()->get();
         $courses = [];
 
-        foreach($student_courses as $std){
-            array_push($courses,$std->courses()->get());
+        //retreive each course id info and add it to the result
+        foreach ($student_courses as $std) {
+            array_push($courses, $std->courses()->get());
         }
-        
+
         return response()->json([
-                'status'=>'Success',
-                "data"=>$courses
-            ]);
+            'status' => 'Success',
+            "data" => $courses
+        ]);
     }
 
     public function submitAssignment(Request $request)
     {
-        return 'assignmentoo';
+        $user = auth()->user();
+        $assignment_id = $request->assignment_id;
+        //receive word file as base64
+        $filebase64 = $request->file_base64;
+
+        //saving file from base64 to word in '/public/assignment_id/student_id.docx
+        $targetPath = public_path() . "\assignments\\" . $assignment_id;
+        $file_url = $targetPath . "\\" . $user->id . ".docx";
+        $this->base64_to_docx($filebase64, $file_url);
+        $file_path_to_save = '\\public\\' . "assignments\\" . $assignment_id . "\\" . $user->id . ".docx";
+
+        $student_assignment = new StudentAssignment;
+        $student_assignment->student_id = $user->id;
+        $student_assignment->assignment_id = $assignment_id;
+        $file_url = $file_path_to_save;
+
+        if ($student_assignment->save()) {
+            return response()->json([
+                'status' => 'Success',
+                'data' => 'Assignment Submitted Successfully'
+            ]);
+
+            return response()->json([
+                'status' => 'Error',
+                'data' => "Assignment isn't Added",
+            ]);
+        }
+    }
+
+    public function base64_to_docx($base64_string, $output_file)
+    {
+        $file = base64_decode($base64_string);
+        file_put_contents($output_file, $file);
     }
 }
