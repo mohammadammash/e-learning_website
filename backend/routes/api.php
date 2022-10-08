@@ -25,6 +25,15 @@ Route::group(['prefix' => 'v0.1'], function () {
             Route::post('admin/assign_instructor_to_course', [AdminController::class, 'assignInstructorToCourse'])->name('admin-assign-instructor-to-course');
         });
 
+        //INSTRUCTOR AUTHORIZATION
+        Route::group(['middleware' => 'instructor'], function () {
+            Route::post('instructor/add_student', [AdminController::class, 'addStudent'])->name('instructor-add-student');
+            Route::post('instructor/add_assignment', [InstructorController::class, 'addAssignment'])->name('instructor-add-assignment');
+            Route::post('instructor/add_announcement', [InstructorController::class, 'addAnnouncement'])->name('instructor-add-announcement');
+            Route::get('instructor/courses', [InstructorController::class, 'getCourses'])->name('instructor-get-courses');
+            Route::get('instructor/courses/assignments', [InstructorController::class, 'getAssignments'])->name('instructor-get-assignments');
+            Route::get('instructor/courses/assignments/submitted', [InstructorController::class, 'getSubmittedAssignments'])->name('instructor-get-submitted-assignments');
+        });
 
     });
 });
