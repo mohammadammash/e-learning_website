@@ -6,6 +6,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 // use Illuminate\Foundation\Auth\User as Authenticatable;
 use Jenssegers\Mongodb\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -31,7 +32,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function usertype()
     {
-        return $this->belongsTo(Usertype::class, 'user_type_id', 'id');
+        return $this->belongsToMany(Usertype::class, 'user_type_id', 'id');
     }
 
     public function announcements()
@@ -46,7 +47,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function students_courses()
     {
-        $this->belongsToMany(Course::class);
+        return $this->belongsToMany(StudentCourse::class,'id','student_id');
     }
 
     public function assignments()
