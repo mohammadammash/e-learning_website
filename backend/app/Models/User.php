@@ -29,27 +29,27 @@ class User extends Authenticatable implements JWTSubject
         'user_type_id',
     ];
 
-    function usertype()
+    public function usertype()
     {
-        $this->belongsTo(UserType::class);
+        return $this->belongsTo(Usertype::class, 'user_type_id', 'id');
     }
 
-    function announcements()
+    public function announcements()
     {
         $this->hasMany(Announcement::class);
     }
 
-    function instructor_courses()
+    public function instructor_courses()
     {
         $this->hasMany(Course::class);
     }
 
-    function students_courses()
+    public function students_courses()
     {
         $this->belongsToMany(Course::class);
     }
 
-    function assignments()
+    public function assignments()
     {
         $this->belongsToMany(Assignment::class);
     }
