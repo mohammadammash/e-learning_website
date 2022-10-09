@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Assignment;
 use App\Models\Announcement;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Http\File;
 
 class InstructorController extends Controller
 {
-    // add new assignment by instructor, includes creating folder to contain assignments submitted
+    // add new assignment, includes creating folder to contain assignments submitted
     public function addAssignment(Request $request)
     {
         $user = auth()->user();
@@ -43,7 +44,7 @@ class InstructorController extends Controller
             $this->base64_to_docx($file_base64, $file_url);
             $file_path_to_save = '\\public\\' . "assignments\\" . $assignment->id . "\\" . $assignment->id . ".docx";
         }
-        
+
         //save file path if exists and if not save empty string instead of leaving it null
         $assignment->file_url = $file_path_to_save;
         if (!$assignment->save()) {
@@ -59,6 +60,7 @@ class InstructorController extends Controller
         ]);
     }
 
+    // add new announcement
     public function addAnnouncement(Request $request)
     {
         $user = auth()->user();
@@ -71,7 +73,7 @@ class InstructorController extends Controller
         $announcement->instructor_id = $instructor_id;
         $announcement->content = $validator['content'];
 
-        if($announcement->save()){
+        if ($announcement->save()) {
             return response()->json([
                 'status' => 'Success',
                 'data' => "Announcement Added",
@@ -83,14 +85,35 @@ class InstructorController extends Controller
             'data' => "Announcement Isn't Added",
         ]);
     }
-    public function getCourses(Request $request)
+
+    //get all courses this instructor is teaching right now(assigned to he instructor by ADMIN)
+    public function getCourses()
     {
-        return 'get crs';
+        $user = auth()->user();
+        $instructor_id = $user->id;
+        $courses = Course::where('instructor_id', $instructor_id)->get();
+
+        return response()->json([
+            'status' => 'Success',
+            'data' => $courses,
+        ]);
     }
-    public function getAssignments(Request $request, $course_id)
+
+    //get all assignments of specific course
+    public function getAssignments($course_id)
     {
-        return $course_id . ' get asg';
+        if (!$course_id) return response()->json([
+            'status' => 'Error',
+            'data' => 'Course Not Found',
+        ]);
+
+        $assignments = Assignment::where('course_id', $course_id)->get();
+        return response()->json([
+            'status' => 'Success',
+            'data' => $assignments,
+        ]);
     }
+    
     public function getSubmittedAssignments(Request $request, $assignment_id)
     {
         return $assignment_id . ' get submit asg';
