@@ -2,12 +2,13 @@ import "./landing.css";
 import img from "../../assets/Happy Bunch - Desk.png";
 //Components
 import Button from "../../components/Button";
-import Input from "../../components/Input";
+import Popup from "../../components/Popup";
 
 export default function Landing() {
   return (
     <>
       <div className="main-landing">
+
         <section className="left-section">
           <div className="content">
             <p className="top-text">E-learning is a better way of Learning</p>
@@ -22,18 +23,8 @@ export default function Landing() {
           <img className="landing-img" src={img} alt="landing-img1" />
         </section>
       </div>
-
-      <section className="modal display-none">
-        <div className="modalContent">
-          <button className="close-button">✖</button>
-          <h2>Login</h2>
-          <form className="form-group">
-            <Input classes={"form-input"} type={"email"} placeholder={"email"} />
-            <Input classes={"form-input"} type={"password"} placeholder={"password"} />
-            <Button text={"Submit"} />
-          </form>
-        </div>
-      </section>
+      
+      <Popup modal_type={'login'}/>
     </>
   );
 }
