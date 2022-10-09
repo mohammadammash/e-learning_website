@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Usertype;
+use App\Models\User;
 
 class CheckIfAdmin
 {
@@ -18,10 +18,11 @@ class CheckIfAdmin
 
     public function handle(Request $request, Closure $next)
     {
-        $usertype = Usertype::find(auth()->user());
-        $type = $usertype[0]->type;
+        $user = auth()->user();
+        $user = User::find($user->id)->usertype()->get();
 
-        if ($type !== "admin")
+        $user_type = $user[0]->type;
+        if ($user_type !== "admin")
             return response()->json("Unauthorized", 403);
 
         return $next($request);

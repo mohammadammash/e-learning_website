@@ -39,7 +39,7 @@ class AuthController extends Controller
         }
         
         // create new user object
-        $new_user = User::create([
+        User::create([
             'name' => $validator['name'],
             'password' => $hashedpassword,
             'profile_url' => $image_url,
