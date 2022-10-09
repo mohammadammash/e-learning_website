@@ -11,7 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+body > #root > div {
+  height: 100vh;
+}
 /* UTILITIES */
 .green-bg {
   background-color: #5bc0be;
