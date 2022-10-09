@@ -1,5 +1,3 @@
-import React, { Component } from "react";
-
 export default function Button({label, text}) {
   return (
     <>
