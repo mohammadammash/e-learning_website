@@ -1,11 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+//COMPONENTS:
+import Landing from "./pages/landing/Landing.jsx";
 
 function App() {
   return (
-    <div className="App">
-      <h1>{window.baseURL}</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
