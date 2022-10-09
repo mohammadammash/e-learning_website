@@ -50,35 +50,15 @@
 /* END OF STYLING RIGHT SECTION */
 
 /* START OF POPUP STYLING */
-.modal {
-  position: absolute;
-  top: 25%;
-  left: 40%;
-}
-.modalContent {
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fff;
-  color: #000;
-  text-align: center;
-  border-radius: 20px;
-  padding: 30px 30px 70px;
-}
-.modalContent p {
-  margin-bottom: 40px;
-  font-size: 18px;
-}
-.form-group .form-input{
-  width:70%;
+.form-group .form-input {
+  width: 70%;
   border: none;
   border-bottom: 1px solid #000;
   border-top: 1px solid #000;
   height: 50px;
   margin-bottom: 50px;
 }
-::placeholder{
+::placeholder {
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -90,15 +70,15 @@
   .landing-img {
     display: none;
   }
-  .main-landing{
+  .main-landing {
     flex-direction: column;
     justify-content: center;
   }
-  .left-section .content{
+  .left-section .content {
     height: 80%;
     justify-content: space-around;
   }
-  .left-section .content p{
+  .left-section .content p {
     font-size: 32px;
   }
 }
