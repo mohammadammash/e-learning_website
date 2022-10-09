@@ -32,7 +32,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function usertype()
     {
-        return $this->belongsToMany(Usertype::class, 'user_type_id', 'id');
+        return $this->belongsTo(Usertype::class, 'user_type_id');
     }
 
     public function students_courses()
