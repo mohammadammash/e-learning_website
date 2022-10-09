@@ -10,6 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 .left-section .content {
   width: 70%;
@@ -18,7 +19,6 @@
   justify-content: space-between;
   text-align: center;
   align-items: center;
-  height: 50%;
 }
 .left-section .content p {
   font-size: 24px;
@@ -83,5 +83,23 @@
   text-transform: uppercase;
 }
 
-
 /* END OF POPUP STYLING */
+
+/* START OF MEDIA QUERIES */
+@media only screen and (max-width: 1000px) {
+  .landing-img {
+    display: none;
+  }
+  .main-landing{
+    flex-direction: column;
+    justify-content: center;
+  }
+  .left-section .content{
+    height: 80%;
+    justify-content: space-around;
+  }
+  .left-section .content p{
+    font-size: 32px;
+  }
+}
+/* END OF MEDIA QUERIES */
