@@ -9,27 +9,42 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    function register(Request $request)
+    public function register(Request $request, $user_type_id)
     {
+        // if there is no user type id provided:
+        if (!$user_type_id) {
+            return response()->json([
+                'status' => 'Error',
+                'data' => 'Missing type',
+            ]);
+        }
+
         // validate request data (if not valid laravel will return by itself)
         $validator = $request->validate([
             'name' => 'required|string',
             'password' => 'required|string',
-            'profile_url' => 'required|string',
+            'profile_url' => 'string',
             'email' => 'required|string',
-            'user_type_id' => 'required'
         ]);
 
         // encrypt password
         $hashedpassword = bcrypt($request->password);
 
+        $image_url = '';
+        if ($request->profile_url) {
+            $image_64 = $validator['profile_url'];
+            $targetPath = public_path() . '\user_images';
+            $image_url = $targetPath . "\\" . $validator['email'] . ".jpeg";
+            $this->base64_to_jpeg($image_64, $image_url);
+        }
+        
         // create new user object
         $new_user = User::create([
             'name' => $validator['name'],
             'password' => $hashedpassword,
-            'profile_url' => $validator['profile_url'],
+            'profile_url' => $image_url,
             'email' => $validator['email'],
-            'user_type_id' => $validator['user_type_id'],
+            'user_type_id' => $user_type_id,
         ]);
 
         return $this->login($request);
@@ -76,5 +91,11 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 500
         ]);
+    }
+
+    public function base64_to_jpeg($base64_string, $output_file)
+    {
+        $image = base64_decode($base64_string);
+        file_put_contents($output_file, $image);
     }
 }
