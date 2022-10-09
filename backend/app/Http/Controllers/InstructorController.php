@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
+use App\Models\StudentAssignment;
 use App\Models\Announcement;
 use App\Models\Course;
 use Illuminate\Http\Request;
@@ -113,11 +114,31 @@ class InstructorController extends Controller
             'data' => $assignments,
         ]);
     }
-    
-    public function getSubmittedAssignments(Request $request, $assignment_id)
+
+    //get submitted assignments of single assignemnt
+    public function getSubmittedAssignments($assignment_id)
     {
-        return $assignment_id . ' get submit asg';
+        auth()->user(); //make sure user is authenticated
+        //retreive all students submitted this specific id
+        $submitted_assignments = Assignment::find($assignment_id)->students_assignments()->get();
+        $students = [];
+
+        //for each submitted students get his user details along with submitted file
+        foreach ($submitted_assignments as $asg) {
+            $data = $asg->student()->get();
+            if(count($data) <=0 ) continue;
+            $data[0]['file_url'] = $asg->file_url;
+            array_push($students, $data);
+        }
+
+        //we will have either empty array or assignments submitted
+        return response()->json([
+            'status' => 'Success',
+            'data' => $students,
+        ]);
     }
+
+    //turn base 64 back into word document
     public function base64_to_docx($base64_string, $output_file)
     {
         $file = base64_decode($base64_string);
