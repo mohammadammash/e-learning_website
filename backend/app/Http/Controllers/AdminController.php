@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -52,10 +53,10 @@ class AdminController extends Controller
         $new_course->description = $validator['description'];
         $new_course->credits = $validator['credits'];
 
-        if($new_course->save()){
+        if ($new_course->save()) {
             return response()->json([
-                'status'=>'success',
-                'data'=>'Course Added'
+                'status' => 'success',
+                'data' => 'Course Added'
             ]);
         }
 
@@ -67,6 +68,40 @@ class AdminController extends Controller
 
     public function assignInstructorToCourse(Request $request)
     {
-        return 'assignetoo';
+        $validator = $request->validate([
+            'course_id' => 'required|string',
+            'instructor_id' => 'required|string',
+        ]);
+
+        $user_type = User::find($validator['instructor_id'])->usertype()->get();
+        $user_type = $user_type[0]->type;
+        //first validate that the id belongs to an instructor
+        if ($user_type !== 'instructor') {
+            return response()->json([
+                'status' => 'Error',
+                'data' => 'Only Instructors can be assigned to the course'
+            ]);
+        }
+
+        $course = Course::find($request->course_id);
+        if (!$course) {
+            return response()->json([
+                'status' => 'Error',
+                'data' => 'Course Not Found'
+            ]);
+        }
+
+        $course->instructor_id = $request->instructor_id;
+        if ($course->save()) {
+            return response()->json([
+                'status' => 'Success',
+                'data' => 'Instructor Assigned Successfully',
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'Error',
+            'data' => "Instructor isn't Assigned",
+        ]);
     }
 }
