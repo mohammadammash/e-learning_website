@@ -14,34 +14,38 @@ code {
 body > #root > div {
   height: 100vh;
 }
+h1{
+  font-size:31px;
+}
+h2{
+  font-size:26px;
+}
 /* UTILITIES */
-.green-bg {
-  background-color: #5bc0be;
+.display-none {
+  display: none;
 }
-.turquoise-bg {
-  background-color: #6fffe9;
+.btn {
+  background-color: #AECFDF;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  width: 200px;
+  padding: 14px;
+  font-size: 16px;
+  color: #000;
+  box-shadow: 0px 6px 18px -5px #647f8d;
+  cursor: pointer;
 }
-.grey-bg {
-  background-color: #3a506b;
+.close-button {
+  width: 30px;
+  font-size: 20px;
+  color: #c0c5cb;
+  align-self: flex-end;
+  background-color: transparent;
+  border: none;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
-.space-bg {
-  background-color: #1c2541;
-}
-.dark-blue-bg {
-  background-color: #0b132b;
-}
-.green-text {
-  color: #5bc0be;
-}
-.turquoise-text {
-  color: #6fffe9;
-}
-.grey-text {
-  color: #3a506b;
-}
-.space-text {
-  color: #1c2541;
-}
-.dark-blue-text {
-  color: #0b132b;
+.disable-pointer{
+  cursor: none;
 }
