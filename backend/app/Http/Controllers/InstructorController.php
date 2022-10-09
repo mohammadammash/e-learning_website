@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Http\File;
 
@@ -60,7 +61,27 @@ class InstructorController extends Controller
 
     public function addAnnouncement(Request $request)
     {
-        return 'add anc';
+        $user = auth()->user();
+        $instructor_id = $user->id;
+        $validator = $request->validate([
+            'content' => 'required|string',
+        ]);
+
+        $announcement = new Announcement;
+        $announcement->instructor_id = $instructor_id;
+        $announcement->content = $validator['content'];
+
+        if($announcement->save()){
+            return response()->json([
+                'status' => 'Success',
+                'data' => "Announcement Added",
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'Error',
+            'data' => "Announcement Isn't Added",
+        ]);
     }
     public function getCourses(Request $request)
     {
