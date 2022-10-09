@@ -56,7 +56,7 @@ class AdminController extends Controller
         if ($new_course->save()) {
             return response()->json([
                 'status' => 'success',
-                'data' => 'Course Added'
+                'data' => $new_course->_id, //return new course id to show instantly to user
             ]);
         }
 
