@@ -13,18 +13,4 @@ class Course extends Model
         'instructor_id',
     ];
 
-    function assignments()
-    {
-        $this->hasMany(Assignment::class);
-    }
-
-    function instructor()
-    {
-        $this->belongsTo(User::class);
-    }
-
-    function students()
-    {
-        $this->belongsToMany(User::class);
-    }
 }

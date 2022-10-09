@@ -14,7 +14,4 @@ class Announcement extends Model
         'content',
     ];
 
-    function instructor(){
-        $this->belongsTo(User::class);
-    }
 }

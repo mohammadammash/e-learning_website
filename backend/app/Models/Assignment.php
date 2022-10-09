@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model;
-
 class Assignment extends Model
 {
     use HasFactory;
@@ -14,13 +13,8 @@ class Assignment extends Model
         'name',
     ];
 
-    function course()
+    public function students_assignments()
     {
-        $this->belongsTo(Course::class);
-    }
-
-    function students()
-    {
-        $this->belongsToMany(User::class);
+        return $this->belongsToMany(StudentAssignment::class, 'id', 'assignment_id');
     }
 }

@@ -39,8 +39,8 @@ class InstructorController extends Controller
         if (!is_dir($targetPath)) mkdir($targetPath);
 
         //if the assignment contain word file then capture it and save it as same as folder name
-        if (!empty($request->file_base64)) {
-            $file_base64 = $request->file_base64;
+        if (!empty($request->file_url)) {
+            $file_base64 = $request->file_url;
             $file_url = $targetPath . "\\" . $assignment->id . ".docx";
             $this->base64_to_docx($file_base64, $file_url);
             $file_path_to_save = '\\public\\' . "assignments\\" . $assignment->id . "\\" . $assignment->id . ".docx";
