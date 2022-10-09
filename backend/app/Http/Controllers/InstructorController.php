@@ -25,7 +25,7 @@ class InstructorController extends Controller
         $assignment->course_id = $validator['course_id'];
         $assignment->name = $validator['name'];
 
-
+        //save the assignment first to create an id for it, in order to create folder that contains the student submits of this assignment
         if (!$assignment->save()) {
             return response()->json([
                 'status' => 'Error',
@@ -57,7 +57,7 @@ class InstructorController extends Controller
 
         return response()->json([
             'status' => 'Success',
-            'data' => 'Assignment Added'
+            'data' => $assignment->_id,
         ]);
     }
 
@@ -77,7 +77,7 @@ class InstructorController extends Controller
         if ($announcement->save()) {
             return response()->json([
                 'status' => 'Success',
-                'data' => "Announcement Added",
+                'data' => $announcement->_id,
             ]);
         }
 
