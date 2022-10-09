@@ -25,7 +25,18 @@ class AdminController extends Controller
 
     public function addInstructor(Request $request)
     {
+        $res = app('App\Http\Controllers\AuthController')->register($request, env('INSTRUCTOR_USER_TYPE_ID'));
+        if ($res) {
+            return response()->json([
+                'status' => 'Success',
+                'data' => 'New Instructor Added',
+            ]);
+        }
 
+        return response()->json([
+            'status' => 'Success',
+            'data' => 'Instructor Not Added',
+        ]);
     }
 
     public function addCourse(Request $request)
