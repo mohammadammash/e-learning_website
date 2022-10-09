@@ -9,8 +9,7 @@ use App\Http\Controllers\StudentController;
 
 Route::group(['prefix' => 'v0.1'], function () {
 
-    //REGISTRATION
-    Route::post('register', [AuthController::class, 'register']);
+    //LOGIN
     Route::post('login', [AuthController::class, 'login']);
 
     //JWT-AUTH MIDDLEWARE //ALL USERS SHOULD BE AUTHENTICATED
