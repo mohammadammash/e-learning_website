@@ -1,22 +1,30 @@
 import "./landing.css";
 import img from "../../assets/Happy Bunch - Desk.png";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 //Components
 import Button from "../../components/Button";
 import Popup from "../../components/Popup";
 
-
 export default function Landing() {
-    const [hidden, setHidden] = useState(true); //state to show/hide login popup
+  const [hidden, setHidden] = useState(true); //state to show/hide login popup
+  const toggleHide = () => {
+    //parent function to let children & parent toggle popup modal
+    setHidden((hidden) => !hidden); //toggle last state
+  };
 
-    const toggleHide = () => { //parent function to let children & parent toggle popup modal
-      setHidden(hidden=>!hidden); //toggle last state
-    };
+  //login inputs:
+  const email = useRef(0);
+  const password = useRef(0);
+  const navigate = useNavigate(); //to render routes
+
+  const submitLogin = (e) => {
+    e.preventDefault();
+  }
 
   return (
     <>
       <div className="main-landing">
-
         <section className="left-section">
           <div className="content">
             <p className="top-text">E-learning is a better way of Learning</p>
@@ -30,10 +38,9 @@ export default function Landing() {
         <section className="right-section">
           <img className="landing-img" src={img} alt="landing-img1" />
         </section>
-        
       </div>
 
-      <Popup modal_type={"login"} hidden={hidden} toggleHide={toggleHide} />
+      <Popup modal_type={"login"} hidden={hidden} toggleHide={toggleHide} submitLogin={submitLogin} email={email} password={password}/>
     </>
   );
 }
