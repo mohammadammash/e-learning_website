@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 //COMPONENTS:
-import Landing from "./pages/landing/Landing.jsx";
-import Home from "./pages/student/home/Home.jsx";
+import Landing from "./pages/Landing.jsx";
+import Home from "./pages/student/Home.jsx";
 
 function App() {
   return (

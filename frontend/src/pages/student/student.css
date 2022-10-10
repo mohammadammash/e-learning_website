@@ -1,0 +1,9 @@
+/* START OF COURSES CONTAINER */
+.courses-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    gap: 2em;
+}
+/* END OF COURSES CONTAINER */

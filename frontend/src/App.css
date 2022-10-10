@@ -17,7 +17,7 @@ h1 {
 h2 {
   font-size: 26px;
 }
-a{
+a {
   color: #000;
   text-decoration: none;
 }
@@ -51,10 +51,29 @@ a{
 .disable-pointer {
   cursor: none;
 }
-.capitalize{
+.capitalize {
   text-transform: capitalize;
 }
 /* END OF UTILITIES */
+
+/* START OF LOADING SPINNER */
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid #aecfdf; /* Black */
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+}
+/* END OF LOADING SPINNER */
 
 /* START OF POPUP */
 .modal {
@@ -86,18 +105,31 @@ a{
 /* END OF POPUP */
 
 /* START OF NAVBAR */
-.nav{
+.nav {
   border-bottom: 2px solid #000;
-  background-color: #9F9FAD;
+  background-color: #9f9fad;
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
 }
-.nav .nav-links{
+.nav .nav-links {
   display: flex;
   align-items: center;
-  width:25%;
+  width: 25%;
   justify-content: space-evenly;
-  gap:1em;
+  gap: 1em;
 }
 /* END OF NAVBAR */
+
+/* START OF COURSE */
+.course-card {
+  border: 2px solid #9f9fad;
+  width: 50%;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  border-radius: 20px;
+}
+/* course-credits
+course-description
+course-description-title */
+/* END OF COURSE */
