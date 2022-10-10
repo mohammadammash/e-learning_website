@@ -52,7 +52,7 @@ export default function Landing() {
           <div className="content">
             <p className="top-text">E-learning is a better way of Learning</p>
             <div className="middle">
-              <Button label={"Already A User?"} text={"Login"} toggleHide={toggleHide} />
+              <Button label={"Already A User?"} text={"Login"} changeState={toggleHide} />
             </div>
             <p className="bottom-text">Are you a student but without an account? Reach out to your instructor, then revisit us with your created account</p>
           </div>

@@ -1,8 +1,8 @@
-export default function Button({label, text, toggleHide}) {
+export default function Button({label, text, changeState}) {
   return (
     <>
       <label>{label}</label>
-      <button className="show-login-button btn" onClick={toggleHide}>{text}</button>
+      <button className="show-login-button btn" onClick={changeState}>{text}</button>
     </>
   );
 }
