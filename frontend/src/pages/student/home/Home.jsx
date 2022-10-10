@@ -1,13 +1,9 @@
+import Navbar from "../../../components/Navbar";
+
 export default function Home() {
   return (
     <>
-      <nav className="nav">
-        <h1 className="nav-logo">EDULAB</h1>
-        <a className="nav-link" href="#ds">
-          HOME/COURSES
-        </a>
-        <button className="btn">Logout</button>
-      </nav>
+      <Navbar/>
 
       <section className="courses-container">
         <div className="course-card">
