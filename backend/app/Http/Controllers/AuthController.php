@@ -37,7 +37,7 @@ class AuthController extends Controller
             $image_url = $targetPath . "\\" . $validator['email'] . ".jpeg";
             $this->base64_to_jpeg($image_64, $image_url);
         }
-        
+
         // create new user object
         User::create([
             'name' => $validator['name'],
@@ -55,11 +55,22 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Unauthenticated'], 401);
         }
 
         $user = User::where('email', $request->email)->get();
         $user[0]->token = $token;
+
+        if ($user[0]->user_type_id === env("ADMIN_USER_TYPE_ID"))
+            $user[0]->user_type_id = 'admin';
+        else if ($user[0]->user_type_id === env("INSTRUCTOR_USER_TYPE_ID"))
+            $user[0]->user_type_id = 'instructor';
+        else
+            $user[0]->user_type_id = 'student';
+
+        //replace user_type_id by user_type string to work easily with frontend
+        $user[0]->user_type = $user[0]->user_type_id;
+        unset($user[0]->user_type_id);
 
         if (count($user) > 0) {
             return response()->json([
