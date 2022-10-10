@@ -1,6 +1,6 @@
 import "./landing.css";
 import img from "../../assets/Happy Bunch - Desk.png";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 //api
 import { loginUser_postAPI } from "../../api/login";
@@ -9,15 +9,24 @@ import Button from "../../components/Button";
 import Popup from "../../components/Popup";
 
 export default function Landing() {
-  const [hidden, setHidden] = useState(true); //state to show/hide login popup
-  //parent function to let children & parent toggle popup modal
+  //inputs
+  const email = useRef(0);
+  const password = useRef(0);
+  const navigate = useNavigate();
+
+  //popup show
+  const [hidden, setHidden] = useState(true);
   const toggleHide = () => {
     setHidden((hidden) => !hidden); //toggle last state
   };
 
-  const email = useRef(0);
-  const password = useRef(0);
-  const navigate = useNavigate();
+  //user type to redirect according
+  const [userType, setUserType] = useState("");
+  useEffect(() => {
+    if (userType === "admin") navigate("/admin");
+    else if (userType === "instructor") navigate("/instructor");
+    else if (userType === "student") navigate("/student"); //we can use here else only, but to make sure usertype matches our userTypes
+  }, [userType]);
 
   const submitLogin = async (e) => {
     e.preventDefault();
@@ -26,9 +35,14 @@ export default function Landing() {
       return;
     }
     //post login user
-    const data =  await loginUser_postAPI(email.current.value, password.current.value);
-    const user = { name:data.name, email:data.email, profile_url:data.profile_url, token:data.token };
-    localStorage.setItem('user',JSON.stringify(user));
+    const data = await loginUser_postAPI(email.current.value, password.current.value);
+    if (!data) {
+      console.log("USER NOT FOUND");
+      return;
+    }
+    const user = { name: data.name, email: data.email, profile_url: data.profile_url, token: data.token };
+    localStorage.setItem("user", JSON.stringify(user));
+    setUserType(data.user_type); //change user type which render the useEffect
   };
 
   return (
