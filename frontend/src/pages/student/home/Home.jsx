@@ -1,9 +1,22 @@
 import Navbar from "../../../components/Navbar";
+import { useState, useRef, useEffect } from "react";
+import { studentCourses_getAPI } from "../../../api/student/getCourses";
 
 export default function Home() {
+  const [courses, setCourses] = useState([]);
+  const getCourses = async (token) => {
+    const data = await studentCourses_getAPI(token);
+    setCourses(data);
+  };
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("user")).token;
+    getCourses(token);
+  }, []);
+
   return (
     <>
-      <Navbar/>
+      <Navbar />
 
       <section className="courses-container">
         <div className="course-card">
