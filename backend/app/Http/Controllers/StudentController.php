@@ -19,12 +19,12 @@ class StudentController extends Controller
         foreach ($student_courses as $std) {
             $course = $std->courses()->get();
             if (count($course) <= 0) continue;
-            array_push($courses, $course);
+            array_push($courses, $course[0]);
         }
 
         return response()->json([
             'status' => 'Success',
-            "data" => $courses
+            "data" => $courses,
         ]);
     }
 
