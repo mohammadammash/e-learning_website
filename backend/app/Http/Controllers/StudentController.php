@@ -17,7 +17,9 @@ class StudentController extends Controller
 
         //retreive each course id info and add it to the result
         foreach ($student_courses as $std) {
-            array_push($courses, $std->courses()->get());
+            $course = $std->courses()->get();
+            if (count($course) <= 0) continue;
+            array_push($courses, $course);
         }
 
         return response()->json([
