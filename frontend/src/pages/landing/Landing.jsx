@@ -25,7 +25,7 @@ export default function Landing() {
   useEffect(() => {
     if (userType === "admin") navigate("/admin");
     else if (userType === "instructor") navigate("/instructor");
-    else if (userType === "student") navigate("/student"); //we can use here else only, but to make sure usertype matches our userTypes
+    else if (userType === "student") navigate("/home"); //we can use here else only, but to make sure usertype matches our userTypes
   }, [userType]);
 
   const submitLogin = async (e) => {
