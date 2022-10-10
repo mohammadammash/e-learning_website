@@ -6,7 +6,7 @@ import axios from "axios";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-window.baseURL = "http://127.0.0.1:8000/api";
+window.baseURL = "http://127.0.0.1:8000/api/v0.1";
 window.image_folder_URL ="C:\\Users\\DellPc2\\Desktop\\e-learning_website\\backend\\public\\user_images\\";
 window.asssignment_folder_URL ="C:\\Users\\DellPc2\\Desktop\\e-learning_website\\backend\\public\\assignments\\";
 
