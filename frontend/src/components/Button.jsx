@@ -1,8 +1,16 @@
-export default function Button({label, text, changeState}) {
+export default function Button({ label, text, changeState, type, task }) {
   return (
     <>
       <label>{label}</label>
-      <button className="show-login-button btn" onClick={changeState}>{text}</button>
+      {type === "showAssignment" ? (
+        <button className="show-login-button btn" onClick={()=>changeState(task)}>
+          {text}
+        </button>
+      ) : (
+        <button className="show-login-button btn" onClick={changeState}>
+          {text}
+        </button>
+      )}
     </>
   );
 }
