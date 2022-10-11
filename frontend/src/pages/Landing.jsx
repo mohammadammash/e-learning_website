@@ -31,15 +31,11 @@ export default function Landing() {
   const submitLogin = async (e) => {
     e.preventDefault();
     if (email.current.value === "" || password.current.value === "") {
-      console.log("EMPTY");
       return;
     }
     //post login user
     const data = await loginUser_postAPI(email.current.value, password.current.value);
-    if (!data) {
-      console.log("USER NOT FOUND");
-      return;
-    }
+    if (!data) return; //user not found
     const user = { name: data.name, email: data.email, profile_url: data.profile_url, token: data.token };
     localStorage.setItem("user", JSON.stringify(user));
     setUserType(data.user_type); //change user type which render the useEffect

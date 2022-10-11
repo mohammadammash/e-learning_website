@@ -7,8 +7,8 @@ import axios from "axios";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 window.baseURL = "http://127.0.0.1:8000/api/v0.1";
-window.image_folder_URL ="C:\\Users\\DellPc2\\Desktop\\e-learning_website\\backend\\public\\user_images\\";
-window.asssignment_folder_URL ="C:\\Users\\DellPc2\\Desktop\\e-learning_website\\backend\\public\\assignments\\";
+window.image_folder_URL = "C:\\Users\\DellPc2\\Desktop\\e-learning_website\\backend\\public\\user_images\\";
+window.asssignment_folder_URL = "C:\\Users\\DellPc2\\Desktop\\e-learning_website\\backend\\public\\assignments\\";
 
 window.getAPI = async (api_url, jwt_token = "") => {
   try {
@@ -18,9 +18,7 @@ window.getAPI = async (api_url, jwt_token = "") => {
         Accept: "application/json",
       },
     });
-  } catch (error) {
-    console.log("/GET API:", error);
-  }
+  } catch (error) {}
 };
 
 window.postAPI = async (api_url, api_data, jwt_token = "") => {
@@ -31,9 +29,7 @@ window.postAPI = async (api_url, api_data, jwt_token = "") => {
         Accept: "application/json",
       },
     });
-  } catch (error) {
-    console.log("/POST API:", error);
-  }
+  } catch (error) {}
 };
 
 root.render(
