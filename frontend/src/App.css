@@ -121,13 +121,22 @@ a {
 }
 /* END OF NAVBAR */
 
-/* START OF COURSE */
-.course-card {
+/* START OF CARD */
+.card {
   border: 2px solid #9f9fad;
-  width: 50%;
+  width: 30%;
+  max-width: 50%;
   padding-left: 20px;
   padding-bottom: 20px;
   border-radius: 20px;
+  max-height: 300px;
+}
+.card .show-word {
+  cursor: pointer;
+}
+.card .assignment-footer {
+  display: flex;
+  justify-content: space-between;
 }
 /* course-credits
 course-description
