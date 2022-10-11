@@ -7,8 +7,10 @@ import Navbar from "../../components/Navbar";
 import Course from "../../components/Course";
 
 export default function Home() {
-  const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
+
+  //START OF GET ALL COURSES ON PAGE LOAD
+  const [courses, setCourses] = useState([]);
   const getCourses = async (token) => {
     const data = await studentCourses_getAPI(token);
     if (!data) {
@@ -23,6 +25,13 @@ export default function Home() {
     const token = JSON.parse(localStorage.getItem("user")).token;
     getCourses(token);
   }, []);
+  //END OF GET ALL COURSES ON PAGE LOAD
+
+  //START OF SELECTING SINGLE ASSIGNMENT //passed to course button, so when clicked get the id of the clicked button
+  function showAssignment(course) {
+    navigate(`/home/${course.name}`, { state: { course_id: course._id } });
+  }
+  //END OF SELECTING SINGLE ASSIGNMENT
 
   return (
     <>
@@ -37,7 +46,7 @@ export default function Home() {
         ) : (
           <>
             {courses.map((course) => (
-              <Course key={course._id} data={course}/>
+              <Course key={course._id} data={course} showAssignment={showAssignment} />
             ))}
           </>
         )}
