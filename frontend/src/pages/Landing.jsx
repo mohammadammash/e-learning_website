@@ -23,7 +23,7 @@ export default function Landing() {
   //user type to redirect according
   const [userType, setUserType] = useState("");
   useEffect(() => {
-    if (userType === "admin") navigate("/admin");
+    if (userType === "admin") navigate("/admin/home");
     else if (userType === "instructor") navigate("/instructor/home");
     else if (userType === "student") navigate("/home"); //we can use here else only, but to make sure usertype matches our userTypes
   }, [userType]);

@@ -1,21 +1,19 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./instructor.css";
 //Components:
 import Navbar from "../../components/Navbar";
 
-export default function InstructorHome() {
-  const navigate = useNavigate();
+export default function Home() {
 
   useEffect(() => {
-    console.log("NEW INSTRUCTORO");
+    console.log("MY INSTRUCTOR");
   }, []);
 
   return (
     <>
       <Navbar />
 
-      <h1>Instructoroo</h1>
+      <h1>My Instructor</h1>
     </>
   );
 }
