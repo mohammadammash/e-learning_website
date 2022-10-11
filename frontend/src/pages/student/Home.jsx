@@ -29,7 +29,7 @@ export default function Home() {
 
   //START OF SELECTING SINGLE ASSIGNMENT //passed to course button, so when clicked get the id of the clicked button
   function showAssignment(course) {
-    navigate(`/home/${course.name}`, { state: { course_id: course._id } });
+    navigate(`/home/${course.name}`, { state: { course_id: course._id, course_name: course.name } });
   }
   //END OF SELECTING SINGLE ASSIGNMENT
 
