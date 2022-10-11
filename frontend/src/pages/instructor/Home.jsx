@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { instructorCourses_getAPI } from "../../api/getInstructorCourses";
 //Components:
 import Navbar from "../../components/Navbar";
-import {instructorCourses_getAPI} from "../../api/getInstructorCourses";
-import { useState } from "react";
+import Card from "../../components/Card";
 
 export default function Home() {
   const navigate = new useNavigate();
@@ -17,7 +17,6 @@ export default function Home() {
       localStorage.clear();
       navigate("/");
     }
-    console.log(data);
     setCourses(data);
   };
 
@@ -28,13 +27,19 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      {courses.length <= 0 ? (
-        <div className="spinner-container">
-          <div className="loading-spinner"></div>
-        </div>
-      ) : (
-        <h1>My Instructor</h1>
-      )}
+      <section className="cards-container">
+        {courses.length <= 0 ? (
+          <div className="spinner-container">
+            <div className="loading-spinner"></div>
+          </div>
+        ) : (
+          <>
+            {courses.map((course) => (
+              <Card key={course._id} data={course} card_type={"course"} />
+            ))}
+          </>
+        )}
+      </section>
     </>
   );
 }
