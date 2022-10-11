@@ -28,4 +28,5 @@ Here, User can register and login and can manage his projects and every task ins
 ## Authors:
 mohammadammash31@gmail.com
 
-
+## PS:
+I created an ERD to visualize relations only and for bootcamp evaluating reasons (./elearning_ERD)
