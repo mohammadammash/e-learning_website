@@ -1,5 +1,7 @@
-export const studentCourses_getAPI = async (token) => {
-  const api_url = `${window.baseURL}/courses`;
+export const courses_getAPI = async (token, user_type) => {
+  let api_url = window.baseURL;
+  if (user_type === "instructor") api_url += "/instructor";
+  api_url += "/courses";
 
   try {
     const response = await window.getAPI(api_url, token);
