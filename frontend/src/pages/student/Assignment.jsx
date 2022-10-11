@@ -4,7 +4,7 @@ import "./student.css";
 import { courseAssignment_getAPI } from "../../api/getCourseAssignments";
 //Components:
 import Navbar from "../../components/Navbar";
-import microsoftword_Icon from "../../assets/microsoft-word.png";
+import Card from "../../components/Card";
 
 export default function Assignment() {
   const { state } = useLocation();
@@ -37,17 +37,12 @@ export default function Assignment() {
           <div className="loading-spinner"></div>
         </div>
       ) : (
-        <>
+        <div className="cards-container">
           <h1>{course_name} Assignments</h1>
           {assignments.map((assignment) => {
-            return (
-              <div className="assignment-card">
-                <h2>{assignment.name}</h2>
-                <img className="show-word" src={microsoftword_Icon} alt="assignment-file"></img>
-              </div>
-            );
+            return <Card key={assignment._id} card_type="assignment" data={assignment} />;
           })}
-        </>
+        </div>
       )}
     </>
   );
