@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { studentCourses_getAPI } from "../../api/getCourses";
+import { courses_getAPI } from "../../api/getCourses";
 import { useNavigate } from "react-router-dom";
 import "./student.css";
 //Components:
@@ -12,7 +12,7 @@ export default function Home() {
   //START OF GET ALL COURSES ON PAGE LOAD
   const [courses, setCourses] = useState([]);
   const getCourses = async (token) => {
-    const data = await studentCourses_getAPI(token);
+    const data = await courses_getAPI(token, 'student');
     if (!data) {
       //unauthenticated - token expired (return false from fetch get)
       localStorage.clear();

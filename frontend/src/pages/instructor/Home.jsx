@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { instructorCourses_getAPI } from "../../api/getInstructorCourses";
+import { courses_getAPI } from "../../api/getCourses";
 //Components:
 import Navbar from "../../components/Navbar";
 import Card from "../../components/Card";
@@ -11,7 +11,7 @@ export default function Home() {
 
   const getInstructorCourses = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const data = await instructorCourses_getAPI(user.token);
+    const data = await courses_getAPI(user.token, "instructor");
     if (!data) {
       //unauthenticated - token expired (return false from fetch get)
       localStorage.clear();
