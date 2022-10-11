@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./student.css";
 //Components:
 import Navbar from "../../components/Navbar";
-import Course from "../../components/Course";
+import Card from "../../components/Card";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export default function Home() {
     <>
       <Navbar />
 
-      <section className="courses-container">
+      <section className="cards-container">
         {/* if data isn't retrieved yet -LOADING */}
         {courses.length <= 0 ? (
           <div className="spinner-container">
@@ -46,7 +46,7 @@ export default function Home() {
         ) : (
           <>
             {courses.map((course) => (
-              <Course key={course._id} data={course} showAssignment={showAssignment} />
+              <Card key={course._id} data={course} showAssignment={showAssignment} card_type={"course"} />
             ))}
           </>
         )}
